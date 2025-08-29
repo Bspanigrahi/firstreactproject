@@ -1,0 +1,92 @@
+// import { useState } from "react";
+import image from "./assets/investment-calculator-logo.png";
+import { calculateInvestmentResults } from "./util/investment";
+
+function App() {
+  let initialInvestment = "";
+  let annualInvestment = "";
+  let expectedReturn = "";
+  let duration = "";
+
+  const handleInitialInvestment = (e) => {
+    initialInvestment = e.target.value;
+    console.log("initialInvestment:", initialInvestment);
+  };
+
+  const handleAnnualInvestment = (e) => {
+    annualInvestment = e.target.value;
+    console.log("annualInvestment:", annualInvestment);
+  };
+
+  const handleExpectedReturn = (e) => {
+    expectedReturn = e.target.value;
+    console.log("expectedReturn:", expectedReturn);
+  };
+
+  const handleDuration = (e) => {
+    duration = e.target.value;
+    console.log("duration:", duration);
+  };
+
+  const result = calculateInvestmentResults({
+    initialInvestment: Number(initialInvestment),
+    annualInvestment: Number(annualInvestment),
+    expectedReturn: Number(expectedReturn),
+    duration: Number(duration),
+  });
+  console.log(result);
+
+  return (
+    <>
+      <div id="header">
+        <img src={image} alt="img" />
+        <h1>Investment Calculator</h1>
+      </div>
+
+      <div id="user-input">
+        <div className="input-group">
+          <p>
+            <label>INITIAL INVESTMENT</label>
+            <input
+              type="text"
+              placeholder="123"
+              onInput={handleInitialInvestment}
+              value={initialInvestment}
+            />
+          </p>
+          <p>
+            <label>ANNUAL INVESTMENT</label>
+            <input
+              type="text"
+              placeholder="123"
+              onInput={handleAnnualInvestment}
+              value={annualInvestment}
+            />
+          </p>
+        </div>
+        <div className="input-group">
+          <p>
+            <label>EXPECTED RETURN</label>
+            <input
+              type="text"
+              placeholder="123"
+              onInput={handleExpectedReturn}
+              value={expectedReturn}
+            />
+          </p>
+          <p>
+            <label>DURATION</label>
+            <input
+              type="text"
+              placeholder="123"
+              onInput={handleDuration}
+              value={duration}
+            />
+          </p>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default App;

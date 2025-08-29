@@ -1,0 +1,113 @@
+import React, { useState } from "react";
+import image from "./assets/investment-calculator-logo.png";
+import { calculateInvestmentResults, formatter } from "./util/investment";
+
+function App() {
+  const [initialInvestment, setInitialInvestment] = useState("");
+  const [annualInvestment, setAnnualInvestment] = useState("");
+  const [expectedReturn, setExpectedReturn] = useState("");
+  const [duration, setDuration] = useState("");
+
+  let result = [];
+
+  if (Number(duration) > 0) {
+    result = calculateInvestmentResults({
+      initialInvestment: Number(initialInvestment),
+      annualInvestment: Number(annualInvestment),
+      expectedReturn: Number(expectedReturn),
+      duration: Number(duration),
+    });
+    console.log(result);
+  }
+  return (
+    <>
+      <div id="header">
+        <img src={image} alt="img" />
+        <h1>Investment Calculator</h1>
+      </div>
+      <div id="user-input">
+        <div className="input-group">
+          <p>
+            <label>INITIAL INVESTMENT</label>
+            <input
+              type="number"
+              placeholder="123"
+              onInput={(e) => setInitialInvestment(e.target.value)}
+              value={initialInvestment}
+            />
+          </p>
+          <p>
+            <label>ANNUAL INVESTMENT</label>
+            <input
+              type="number"
+              placeholder="123"
+              onInput={(e) => setAnnualInvestment(e.target.value)}
+              value={annualInvestment}
+            />
+          </p>
+        </div>
+
+        <div className="input-group">
+          <p>
+            <label>EXPECTED RETURN</label>
+            <input
+              type="number"
+              placeholder="123"
+              onInput={(e) => setExpectedReturn(e.target.value)}
+              value={expectedReturn}
+            />
+          </p>
+          <p>
+            <label>DURATION</label>
+            <input
+              type="number"
+              placeholder="123"
+              onInput={(e) => setDuration(e.target.value)}
+              value={duration}
+            />
+          </p>
+        </div>
+      </div>
+      {/* <p>Please enter a duration greater than zero</p> */}
+
+      {Number(duration) <= 0 && (
+        <p className="center">Please enter a duration greater than zero</p>
+      )}
+
+      {result.length > 0 && (
+        <table id="result">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Investment Value</th>
+              <th>Interest(year)</th>
+              <th>Total Interest </th>
+              <th>Investedcapital</th>
+            </tr>
+          </thead>
+          <tbody>
+            {result.map((yearData) => {
+              const totalInvestment =
+                Number(initialInvestment) +
+                yearData.annualInvestment * yearData.year;
+              return (
+                <tr key={yearData.year}>
+                  <td>{yearData.year}</td>
+                  <td>{formatter.format(yearData.valueEndOfYear)}</td>
+                  <td>{formatter.format(yearData.interest)}</td>
+                  <td>
+                    {formatter.format(
+                      yearData.valueEndOfYear - totalInvestment
+                    )}
+                  </td>
+                  <td>{formatter.format(totalInvestment)}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
+    </>
+  );
+}
+export default App;

@@ -1,0 +1,80 @@
+import React, { Component, useState } from "react";
+import image from "./assets/investment-calculator-logo.png";
+import { calculateInvestmentResults } from "./util/investment";
+
+function App() {
+  const [initialInvestment, setInitialInvestment] = useState('');
+  const [annualInvestment, setAnnualInvestment] = useState('');
+  const [expectedReturn, setExpectedReturn] = useState('');
+  const [duration, setDuration] = useState('');
+
+  const result = calculateInvestmentResults({
+    initialInvestment: Number(initialInvestment),
+    annualInvestment: Number(annualInvestment),
+    expectedReturn: Number(expectedReturn),
+    duration: Number(duration),
+  });
+
+  console.log(result); // Outputs result based on current input values
+
+  return (
+    <>
+      <div id="header">
+        <img src={image} alt="img" />
+        <h1>Investment Calculator</h1>
+      </div>
+
+      <div id="user-input">
+        <div className="input-group">
+          <p>
+            <label>INITIAL INVESTMENT</label>
+            <input
+              type="text"
+              placeholder="123"
+              onInput={(e) => setInitialInvestment(e.target.value)}
+              value={initialInvestment}
+            />
+          </p>
+          <p>
+            <label>ANNUAL INVESTMENT</label>
+            <input
+              type="text"
+              placeholder="123"
+              onInput={(e) => setAnnualInvestment(e.target.value)}
+              value={annualInvestment}
+            />
+          </p>
+        </div>
+
+        <div className="input-group">
+          <p>
+            <label>EXPECTED RETURN</label>
+            <input
+              type="text"
+              placeholder="123"
+              onInput={(e) => setExpectedReturn(e.target.value)}
+              value={expectedReturn}
+            />
+          </p>
+          <p>
+            <label>DURATION</label>
+            <input
+              type="text"
+              placeholder="123"
+              onInput={(e) => setDuration(e.target.value)}
+              value={duration}
+            />
+          </p>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default App;
+
+
+1.Ui fixed as per the referance variable.
+2.input collection 1 component and result 1 Component
+3.if required used it.
+4.code optimization.
