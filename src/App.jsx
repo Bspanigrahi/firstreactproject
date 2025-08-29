@@ -124,7 +124,7 @@ function App() {
     <>
       <div id="header">
         <img src={image} alt="img" />
-        <h1>Investment Calculator</h1>
+        <h1>Investment Calculator IN React</h1>
       </div>
       <UserInput 
       // onInitialInvestment={handleInvestmentChange}
