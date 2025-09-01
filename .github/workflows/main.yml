@@ -14,16 +14,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        # checks out (downloads) repository code into the GitHub Actions runner (the virtual machine where workflow runs)
-        uses: actions/checkout@v2
+        
+        uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: 16
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        uses: bahmutov/npm-install@v4
 
       - name: Build Project
         run: npm run build
